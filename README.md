@@ -1,2 +1,2 @@
-# CapstoneBatch12
+# Capstone
 Testing git file Tracking
