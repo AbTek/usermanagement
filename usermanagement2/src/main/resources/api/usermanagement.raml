@@ -1,0 +1,82 @@
+#%RAML 1.0
+title: userManagement
+
+/users:
+  get:
+    description: Get/Retrieve all users
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/getUsersResponse.json
+      500:
+          body:
+            application/json:
+              example: |
+                {"msg": "Server error."}
+  post:
+    description: Update/Create a new user
+    body:
+      application/json:
+        example: !include examples/postUserRequest.json
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {"msg": "user updated/created"}
+      400:
+        body:
+          application/json:
+            example: |
+              {"msg": "Error. Please enter a valid JSON."}
+
+  /{id}:
+    get:
+      description: Retrieves a user based on id
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/getUserByIdResponse.json              
+        404:
+          body:
+            application/json:
+              example: |
+                {"msg": "User not found."}
+    delete:
+      description: Delete a user
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {"msg": "User deleted!"}
+        404:
+          body:
+            application/json:
+              example: |
+                {"msg": "User not found."}
+    put:
+      description: Update/Create a new user
+      body:
+        application/json:
+          example: !include examples/putUserRequest.json
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {"msg": "user updated/created"}
+        400:
+          body:
+            application/json:
+              example: |
+                {"msg": "Error. Please enter a valid JSON."}
+  
+    
+
+
+
+                
+            
