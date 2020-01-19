@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="userImplimentation-test-suite.xml" />
+	<munit:test name="userImplimentation-test-suite-postUserTest" doc:id="caf465c5-42d1-4987-949d-c38e8b908618" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="ae314b7d-7615-4fc5-9491-122b930a7fbd" >
+				<munit:payload value='{
+      "first": "Adam",
+      "last": "Bob",
+      "department": "IIB"
+ }' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to postUser" doc:id="5456e118-7388-4a7a-a324-316bf74d429c" name="postUser"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="0a1a5d6b-bb74-4788-8644-464752f994ab" message="Payload is not as expected" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="userImplimentation-test-suite-getAllUsersTest" doc:id="05848e6a-b733-4062-ba0e-9e1514a0ed0a" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getAllUsers" doc:id="c100e250-07f3-4356-8007-22375a8f4f31" name="getAllUsers"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="75b12dd8-1220-4ef4-a493-91812411687e" is="#[MunitTools::notNullValue()]" expression="#[payload]" message="Payload is not as expected"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="userImplimentation-test-suite-getUserByIdTest" doc:id="f2bceab5-3e4f-4ce1-a3a1-c7e7f9fcf985" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="e7d428c9-1b80-4288-b111-50ef54231c7b" >
+				<munit:attributes value="#[{uriParams: {id: '1'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getUserById" doc:id="8259438c-0122-4990-91b4-73059c808e63" name="getUserById"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="a1fb0a65-56c3-42a1-996c-735d92040d64" is="#[MunitTools::notNullValue()]" message="Payload is not as expected" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="userImplimentation-test-suite-UpdateUserTest" doc:id="cfb39ecf-a27c-4c44-83e8-645e3c6a1dbb" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="5d198e0e-344d-4fdb-b6e3-498a7506bdf0" >
+				<munit:payload value='{
+  "first": "Henok",
+  "last": "Bob",
+  "department": "IIB"
+}' mediaType="application/json" />
+				<munit:attributes value="#[{uriParams: {id: '1'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to UpdateUser" doc:id="582a291c-442f-47d0-b61c-8395fbac3de2" name="UpdateUser"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="45a7f7ee-4a38-49a2-b15e-e4d7a0995c92" is="#[MunitTools::notNullValue()]" message="Payload is not as expected" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="userImplimentation-test-suite-DeleteUserFlowTest" doc:id="f0de88ed-423d-46d9-9dfb-4c5a92773068" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="8350e7f9-d94b-4c40-98a6-e71edd908018" >
+				<munit:attributes value="#[{uriParams: {id: '1'}}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to DeleteUserFlow" doc:id="88bb0e8b-46b3-472b-a0a8-5156fd9773f7" name="DeleteUserFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="56962552-44c0-43d8-8124-764baba0f1f6" is="#[MunitTools::notNullValue()]" message="Payload is not as expected" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

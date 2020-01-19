@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<wsc:config name="Web_Service_Consumer_Config" doc:name="Web Service Consumer Config" doc:id="5a062719-b38c-435b-9169-85045a9df262" >
+		<wsc:connection wsdlLocation="http://api.icraftsoft.net:5858/ws/users.wsdl" service="UserPortService" port="UserPortSoap11" address="http://api.icraftsoft.net:5858/ws" />
+	</wsc:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="8e369b1f-98c4-4078-bca5-038458120aff" file="${env}.yaml" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2799df4f-c517-4c89-a2ce-e0ae578748b7" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="2a31b5c9-b881-444b-a848-d05c948413ef" name="env" value="uat" />
+</mule>

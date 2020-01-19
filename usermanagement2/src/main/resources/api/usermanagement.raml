@@ -30,6 +30,22 @@ title: userManagement
           application/json:
             example: |
               {"msg": "Error. Please enter a valid JSON."}
+  put:
+    description: Update/Create a new user
+    body:
+      application/json:
+        example: !include examples/putUserRequest.json
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {"msg": "user updated/created"}
+      400:
+        body:
+          application/json:
+            example: |
+              {"msg": "Error. Please enter a valid JSON."}
 
   /{id}:
     get:
@@ -57,22 +73,7 @@ title: userManagement
             application/json:
               example: |
                 {"msg": "User not found."}
-    put:
-      description: Update/Create a new user
-      body:
-        application/json:
-          example: !include examples/putUserRequest.json
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {"msg": "user updated/created"}
-        400:
-          body:
-            application/json:
-              example: |
-                {"msg": "Error. Please enter a valid JSON."}
+
   
     
 

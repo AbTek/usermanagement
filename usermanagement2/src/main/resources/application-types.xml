@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="usersGet" format="json">
+      <types:shape format="weave" example="examples/usersget.json"><![CDATA[%dw 2.0
+
+type usersGet = Array<{|  id: Number {"typeId": "int"},   first: String,   last: String,   department: String|}> {"example": "[{\\\"id\\\":1,\\\"first\\\":\\\"Adam\\\",\\\"last\\\":\\\"Bob\\\",\\\"department\\\":\\\"IIB\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="createUser" format="json">
+      <types:shape format="weave" example="examples/createUser.json"><![CDATA[%dw 2.0
+
+type createUser = {|
+  first: String, 
+  last: String, 
+  department: String
+|} {"example": "{\\\"first\\\":\\\"Adam\\\",\\\"last\\\":\\\"Bob\\\",\\\"department\\\":\\\"IIB\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="getUserById" format="json">
+      <types:shape format="weave" example="examples/user.json"><![CDATA[%dw 2.0
+
+type getUserById = {|
+  id: Number {"typeId": "int"}, 
+  first: String, 
+  last: String, 
+  department: String
+|} {"example": "{\\\"id\\\":1,\\\"first\\\":\\\"Adam\\\",\\\"last\\\":\\\"Bob\\\",\\\"department\\\":\\\"IIB\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#33d7991e-92ff-4754-992a-cd644afbede5">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="usersGet"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#8f7d261e-2d4a-4715-9173-1293f57d3ff6">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="createUser"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#226795a3-1a76-4309-b861-5d95e78a2e2e"/>
+  <types:enrichment select="#d7c297d2-dc34-4a7b-8ebe-98cc34c91c1f">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="getUserById"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#31513dfc-bca1-4d63-a6d9-0b0f0a9bf8e5">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="getUserById"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#6f54b40a-52b4-423d-b27a-478da458c864"/>
+</types:mule>
